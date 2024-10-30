@@ -12,8 +12,8 @@ public class UrlService {
     @Autowired
     private UrlRepository urlRepository;
 
-    public Url saveUrl(Url url) {
-        return urlRepository.save(url);
+    public void saveUrl(Url url) {
+        urlRepository.save(url);
     }
 
     public Optional<Url> getUrlByShortUrl(String shortUrl) {
@@ -26,5 +26,10 @@ public class UrlService {
             u.setActive(false);
             urlRepository.save(u);
         });
+    }
+
+    public Url getUrl(String shortUrl) {
+        Optional<Url> url = urlRepository.findByShortUrl(shortUrl);
+        return url.orElse(null);
     }
 }
